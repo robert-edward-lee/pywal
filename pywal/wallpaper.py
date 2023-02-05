@@ -119,10 +119,13 @@ def set_desktop_wallpaper(desktop, img):
 
     elif "kde" in desktop:
         string = """
-            var allDesktops = desktops();for (i=0;i<allDesktops.length;i++){
-            d = allDesktops[i];d.wallpaperPlugin = "org.kde.image";
-            d.currentConfigGroup = Array("Wallpaper", "org.kde.image",
-            "General");d.writeConfig("Image", "%s")};
+            var Desktops = desktops();
+            for (i = 0; i < Desktops.length; i++) {
+                d = Desktops[i];
+                d.wallpaperPlugin = "org.kde.image";
+                d.currentConfigGroup = Array("Wallpaper", "org.kde.image", "General");
+                d.writeConfig("Image", "%s");
+            }
         """
         util.disown(["qdbus", "org.kde.plasmashell", "/PlasmaShell",
                      "org.kde.PlasmaShell.evaluateScript", string % img])
