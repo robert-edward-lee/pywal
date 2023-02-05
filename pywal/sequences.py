@@ -83,7 +83,8 @@ def send(colors, cache_dir=CACHE_DIR, to_send=True, vte_fix=False):
     # Writing to "/dev/pts/[0-9] lets you send data to open terminals.
     if to_send:
         for term in glob.glob(tty_pattern):
-            util.save_file(sequences, term)
+            if term != '/dev/pts/0':
+                util.save_file(sequences, term)
 
     util.save_file(sequences, os.path.join(cache_dir, "sequences"))
     logging.info("Set terminal colors.")
